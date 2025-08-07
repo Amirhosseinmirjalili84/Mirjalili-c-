@@ -1,0 +1,63 @@
+#include <iostream>
+#include <string>
+
+class PersonProfile {
+private:
+    std::string givenName;
+    std::string surname;
+    int ageYears;
+
+public:
+    PersonProfile() : givenName(""), surname(""), ageYears(0) {}
+
+    void fillInfo(const std::string& gName, const std::string& sName, int age) {
+        givenName = gName;
+        surname = sName;
+        ageYears = age;
+    }
+
+    int fetchAge() const {
+        return ageYears;
+    }
+
+    void printProfile() const {
+        std::cout << "Name: " << givenName << " " << surname << " | Age: " << ageYears << std::endl;
+    }
+};
+
+int main() {
+    const int personCount = 10;
+    PersonProfile people[personCount];
+
+    for (int i = 0; i < personCount; ++i) {
+        std::string nameInput, familyInput;
+        int enteredAge;
+
+        std::cout << "Enter details for individual #" << i + 1 << ":\n";
+        std::cout << "Given Name: ";
+        std::cin >> nameInput;
+        std::cout << "Surname: ";
+        std::cin >> familyInput;
+        std::cout << "Current Age: ";
+        std::cin >> enteredAge;
+
+        people[i].fillInfo(nameInput, familyInput, enteredAge);
+    }
+
+    int totalAges = 0;
+    for (int i = 0; i < personCount; ++i) {
+        totalAges += people[i].fetchAge();
+    }
+
+    double averageAge = static_cast<double>(totalAges) / personCount;
+
+    std::cout << "\n=== Final Report ===\n";
+    for (int i = 0; i < personCount; ++i) {
+        people[i].printProfile();
+    }
+
+    std::cout << "\nAverage Age: " << averageAge << " years\n";
+    std::cout << "Coded by: Amirhossein Mirjalili\n";
+
+    return 0;
+}
