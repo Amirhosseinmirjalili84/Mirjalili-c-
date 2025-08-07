@@ -1,0 +1,79 @@
+#include <iostream>
+#include <string>
+
+class Identity {
+protected:
+    std::string first;
+    std::string last;
+
+public:
+    Identity(const std::string& f, const std::string& l)
+        : first(f), last(l) {}
+
+    void printName() const {
+        std::cout << "Full Name: " << first << " " << last << std::endl;
+    }
+};
+
+class Pupil : public Identity {
+private:
+    float mark;
+
+public:
+    Pupil(const std::string& f, const std::string& l, float m)
+        : Identity(f, l), mark(m) {}
+
+    void showDetails() const {
+        printName();
+        std::cout << "Mark: " << mark << std::endl;
+    }
+
+    float getMark() const {
+        return mark;
+    }
+};
+
+class Mentor : public Identity {
+private:
+    float monthlyPay;
+
+public:
+    Mentor(const std::string& f, const std::string& l, float pay)
+        : Identity(f, l), monthlyPay(pay) {}
+
+    void showProfile() const {
+        printName();
+        std::cout << "Monthly Pay: " << monthlyPay << std::endl;
+    }
+};
+
+float calcAverage(const Pupil arr[], int len) {
+    float total = 0;
+    for (int i = 0; i < len; ++i) {
+        total += arr[i].getMark();
+    }
+    return len > 0 ? total / len : 0;
+}
+
+int main() {
+    Pupil group[3] = {
+        Pupil("Reza", "Amiri", 16.8),
+        Pupil("Lina", "Shirazi", 18.4),
+        Pupil("Kian", "Zand", 19.0)
+    };
+
+    Mentor guide("Amirhossein", "Mirjalili", 45000000);
+
+    std::cout << "Pupil Records:\n";
+    for (const auto& member : group) {
+        member.showDetails();
+        std::cout << "---------------------\n";
+    }
+
+    std::cout << "Group Average: " << calcAverage(group, 3) << std::endl;
+
+    std::cout << "\nMentor Record:\n";
+    guide.showProfile();
+
+    return 0;
+}
