@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+
+class Profile {
+private:
+    std::string name;
+    std::string family;
+    int age;
+
+public:
+    Profile() : name(""), family(""), age(0) {}
+
+    void setInfo(const std::string& n, const std::string& f, int a) {
+        name = n;
+        family = f;
+        age = a;
+    }
+
+    int getAge() const {
+        return age;
+    }
+
+    void display() const {
+        std::cout << "Name: " << name << " " << family << " | Age: " << age << "\n";
+    }
+};
+
+int main() {
+    const int count = 10;
+    Profile persons[count];
+
+    for (int i = 0; i < count; ++i) {
+        std::string n, f;
+        int a;
+
+        std::cout << "Enter data for person #" << i + 1 << ":\n";
+        std::cout << "- Name: ";
+        std::cin >> n;
+        std::cout << "- Family: ";
+        std::cin >> f;
+        std::cout << "- Age: ";
+        std::cin >> a;
+
+        persons[i].setInfo(n, f, a);
+    }
+
+    int total = 0;
+    for (const auto& person : persons) {
+        total += person.getAge();
+    }
+
+    double average = static_cast<double>(total) / count;
+
+    std::cout << "\n--- People Summary ---\n";
+    for (const auto& person : persons) {
+        person.display();
+    }
+
+    std::cout << "\nCalculated Average Age: " << average << " years\n";
+
+    return 0;
+}
